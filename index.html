@@ -27,6 +27,7 @@
     justify-content:center;
     padding:20px;
     overflow-x:hidden;
+    position: relative;
   }
   body::after{
     content:""; position:fixed; inset:0;
@@ -42,6 +43,8 @@
     box-shadow: 0 0 0 1px rgba(57,255,20,.08), 0 0 40px rgba(57,255,20,.12), inset 0 0 60px rgba(57,255,20,.03);
     overflow:hidden;
     animation: bootIn .6s ease-out;
+    position: relative;
+    z-index: 10; /* Nổi lên trên cánh hoa */
   }
   @keyframes bootIn{ from{opacity:0; transform:translateY(8px) scale(.99);} to{opacity:1; transform:none;} }
 
@@ -147,6 +150,33 @@
     from, to { border-color: transparent }
     50% { border-color: var(--green) }
   }
+
+  /* --- HIỆU ỨNG CÁNH HOA RƠI --- */
+  .petal {
+    position: fixed;
+    top: -50px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, #ff4d4d, #cc0000);
+    border-radius: 15px 0 15px 0;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1; /* Nằm dưới terminal */
+    animation: fall linear forwards;
+    box-shadow: 0 0 5px rgba(255,0,0,0.5);
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg) translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg) translateX(100px);
+      opacity: 0;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -316,6 +346,40 @@
     `);
   }
 
+  // HÀM TẠO CÁNH HOA RƠI
+  function startPetalFall() {
+    // Tạo 30 cánh hoa rơi rải rác
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        const petal = document.createElement("div");
+        petal.className = "petal";
+        
+        // Vị trí ngẫu nhiên theo chiều ngang
+        const startX = Math.random() * 100; 
+        petal.style.left = `${startX}vw`;
+        
+        // Kích thước ngẫu nhiên
+        const size = Math.random() * 10 + 10; // 10px - 20px
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        
+        // Thời gian rơi ngẫu nhiên (3s - 6s)
+        const duration = Math.random() * 3 + 3; 
+        petal.style.animationDuration = `${duration}s`;
+        
+        // Độ trễ ngẫu nhiên
+        petal.style.animationDelay = `${Math.random() * 2}s`;
+
+        document.body.appendChild(petal);
+
+        // Xóa cánh hoa sau khi rơi xong để tránh rác DOM
+        setTimeout(() => {
+          petal.remove();
+        }, (duration + 2) * 1000);
+      }, i * 150); // Bắn ra từng đợt
+    }
+  }
+
   function printFlower(){
     const roseSVG = `
       <svg class="rose" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
@@ -340,6 +404,9 @@
       <div class="typewriter-text">Giữa một rừng hoa hy vọng, cậu vẫn luôn thấy cậu cũng là một bông hoa và là bông hoa đẹp nhất.</div>
       <div style="margin-top: 15px;"></div>
     `);
+
+    // Gọi hiệu ứng hoa rơi
+    startPetalFall();
   }
 
   function printWishForm(){
