@@ -76,11 +76,12 @@
   }
   input::placeholder{color:var(--green-dim); opacity:.6;}
 
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
   .btn{
-    display:inline-block; margin-top:10px; padding:8px 16px;
+    display:inline-block; padding:8px 16px;
     background:transparent; border:1px solid var(--green); color:var(--green);
     font-family:var(--mono); font-size:13px; letter-spacing:1px; cursor:pointer;
-    border-radius:6px; transition:.2s; text-transform:uppercase; text-decoration:none;
+    border-radius:6px; transition:.2s; text-decoration:none;
   }
   .btn:hover{ background:var(--green); color:#02140a; box-shadow:0 0 18px rgba(57,255,20,.55); }
 
@@ -138,7 +139,6 @@
     line-height: 1.5;
   }
   
-  /* Hiệu ứng gõ chữ */
   @keyframes typing {
     from { width: 0; opacity: 1; }
     to { width: 100%; opacity: 1; }
@@ -147,7 +147,6 @@
     from, to { border-color: transparent }
     50% { border-color: var(--green) }
   }
-
 </style>
 </head>
 <body>
@@ -180,6 +179,8 @@
   let currentUser = "guest";
   let currentPath = "~";
   let isLoggedIn = false;
+  
+  const MY_EMAIL = "luvanthai.security@gmail.com"; 
 
   const bootSeq = [
     "HangOS 1.0 LTS (GNU/Linux 5.15.0-generic x86_64)",
@@ -316,7 +317,6 @@
   }
 
   function printFlower(){
-    // SVG bông hồng
     const roseSVG = `
       <svg class="rose" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
         <path d="M50 120 Q50 90 50 70" stroke="#1f8a12" stroke-width="4" fill="none"/>
@@ -329,7 +329,6 @@
       </svg>
     `;
     
-    // In ra bó hoa (5 bông)
     print(`
       <div class="bouquet-container">
         ${roseSVG}
@@ -378,17 +377,28 @@
       cmdInput.dataset.action = "";
       cmdInput.placeholder = "type a command...";
       
-      const email = "luvanthai.security@gmail.com"; // <-- CẬU SỬA EMAIL CỦA CẬU VÀO ĐÂY
       const subject = encodeURIComponent(`[HangOS] Điều ước của Hằng`);
       const body = encodeURIComponent(`Cảm ơn đã gửi điều ước:\n\n"${val}"`);
       
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${MY_EMAIL}&su=${subject}&body=${body}`;
+      const mailtoLink = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
+      const plainTextWish = `Diep uoc cua Hang: ${val}`;
+
       print("Encrypting wish...");
+      
       setTimeout(() => {
         print("Saving to remote server... [ OK ]");
         print(`Your wish has been logged:`);
         print(`<span class="amber">"${escapeHtml(val)}"</span>`);
-        print(`<a href="mailto:${email}?subject=${subject}&body=${body}" target="_blank" class="btn" style="margin-top:15px;">[ Gửi điều ước về cho Thái ]</a>`);
-        print("<span class='dim'>Bấm vào nút trên để gửi điều ước qua Email nhé!</span>");
+        
+        print(`
+          <div class="btn-group">
+            <a href="${gmailLink}" target="_blank" class="btn">[ Gửi qua Gmail Web ]</a>
+            <a href="${mailtoLink}" class="btn">[ Dùng App Mail ]</a>
+            <button class="btn" onclick="navigator.clipboard.writeText('${plainTextWish}').then(()=>{this.innerText='[ Đã Copy! ]'; setTimeout(()=>this.innerText='[ Copy điều ước ]', 2000);})">[ Copy điều ước ]</button>
+          </div>
+        `);
+        print("<span class='dim'>Nếu nút Gmail không hoạt động, hãy bấm Copy và gửi qua Messenger/Zalo nhé!</span>");
       }, 500);
     }
     else {
