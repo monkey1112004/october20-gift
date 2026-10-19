@@ -44,7 +44,7 @@
     overflow:hidden;
     animation: bootIn .6s ease-out;
     position: relative;
-    z-index: 10; /* Nổi lên trên cánh hoa */
+    z-index: 10; 
   }
   @keyframes bootIn{ from{opacity:0; transform:translateY(8px) scale(.99);} to{opacity:1; transform:none;} }
 
@@ -99,7 +99,7 @@
   .card h1{ font-size:18px; color:var(--green); letter-spacing:1px; margin-bottom:10px; }
   .card p{margin:8px 0;}
 
-  /* --- CSS CHO BÓ HOA HỒNG VÀ CHỮ CHẠY --- */
+  
   .bouquet-container {
     display: flex;
     justify-content: center;
@@ -151,7 +151,7 @@
     50% { border-color: var(--green) }
   }
 
-  /* --- HIỆU ỨNG CÁNH HOA RƠI --- */
+ 
   .petal {
     position: fixed;
     top: -50px;
@@ -210,7 +210,7 @@
   let currentPath = "~";
   let isLoggedIn = false;
   
-  const MY_EMAIL = "luvanthai.security@gmail.com"; 
+  const MY_EMAIL = "7h41hackno.1@gmail.com"; 
 
   const bootSeq = [
     "HangOS 1.0 LTS (GNU/Linux 5.15.0-generic x86_64)",
@@ -346,37 +346,25 @@
     `);
   }
 
-  // HÀM TẠO CÁNH HOA RƠI
+  
   function startPetalFall() {
-    // Tạo 30 cánh hoa rơi rải rác
     for (let i = 0; i < 30; i++) {
       setTimeout(() => {
         const petal = document.createElement("div");
         petal.className = "petal";
-        
-        // Vị trí ngẫu nhiên theo chiều ngang
         const startX = Math.random() * 100; 
         petal.style.left = `${startX}vw`;
-        
-        // Kích thước ngẫu nhiên
-        const size = Math.random() * 10 + 10; // 10px - 20px
-        petal.style.width = `${size}px`;
+        const size = Math.random() * 10 + 10; 
         petal.style.height = `${size}px`;
-        
-        // Thời gian rơi ngẫu nhiên (3s - 6s)
         const duration = Math.random() * 3 + 3; 
         petal.style.animationDuration = `${duration}s`;
-        
-        // Độ trễ ngẫu nhiên
         petal.style.animationDelay = `${Math.random() * 2}s`;
 
         document.body.appendChild(petal);
-
-        // Xóa cánh hoa sau khi rơi xong để tránh rác DOM
         setTimeout(() => {
           petal.remove();
         }, (duration + 2) * 1000);
-      }, i * 150); // Bắn ra từng đợt
+      }, i * 150); 
     }
   }
 
@@ -401,11 +389,9 @@
         ${roseSVG}
         ${roseSVG}
       </div>
-      <div class="typewriter-text">Giữa một rừng hoa hy vọng, cậu vẫn luôn thấy cậu cũng là một bông hoa và là bông hoa đẹp nhất.</div>
+      <div class="typewriter-text">Giữa một rừng hoa hy vọng, cậu vẫn luôn thấy cậu cũng là một bông hoa và là bông hoa đẹp nhất he he he!</div>
       <div style="margin-top: 15px;"></div>
     `);
-
-    // Gọi hiệu ứng hoa rơi
     startPetalFall();
   }
 
@@ -465,7 +451,7 @@
             <button class="btn" onclick="navigator.clipboard.writeText('${plainTextWish}').then(()=>{this.innerText='[ Đã Copy! ]'; setTimeout(()=>this.innerText='[ Copy điều ước ]', 2000);})">[ Copy điều ước ]</button>
           </div>
         `);
-        print("<span class='dim'>Nếu nút Gmail không hoạt động, hãy bấm Copy và gửi qua Messenger/Zalo nhé!</span>");
+        print("<span class='dim'>Nếu nút Gmail không hoạt động, hãy bấm Copy và gửi qua ig nhé!</span>");
       }, 500);
     }
     else {
